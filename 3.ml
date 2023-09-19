@@ -79,5 +79,4 @@ let elementsInCommon (lists : 'a list list) : 'a list =
   in aux (List.hd lists) lists;;
 
 let groups = groupedInThree backpacksInAscii;;
-findDuplicates [1;2;3;4;5] [4;5;6;7;8];;
 List.fold_left (+) 0 (List.map List.hd (List.map elementsInCommon groups));;
