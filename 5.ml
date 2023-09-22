@@ -75,47 +75,9 @@ let executeCommands (commands : string list list) =
 let fileInput = read_file "5.txt";;
 let stacksAsArr = splitInputToLists fileInput;;
 transposeListsToArr stacksAsArr;;
+let otherStacks = stacks;;
 let rawCommands = getCommands fileInput;;
 let commands =  List.map (String.split_on_char ' ') rawCommands;;
+let otherStacks = stacks;;
 executeCommands commands;;
 print_char_list_ref_array stacks
-
-(*-------------=+ Part 2 +=-------------*)
-let executeCommands9001 (commands : string list list) = 
-  let ec (command : string list) = 
-    print_string "\n";
-    List.map print_string command;
-    print_string "\n";
-    print_char_list_ref_array stacks;
-
-    let fromIndex = int_of_string(List.nth command 3) - 1 in
-    let toIndex = int_of_string(List.nth command 5) -1 in
-    let newList = ref[] in 
-
-    for i = 1 to int_of_string(List.nth command 1) do
-      (* let movedElement = List.hd !(stacks.(fromIndex)) in *)
-      let movedElement = 'v' in
-      let newFromList =
-        match !(stacks.(fromIndex)) with 
-        | h::t -> t 
-        | x -> [] in
-      (stacks.(fromIndex)) := newFromList ;
-      newList:= movedElement::!newList;
-    done;
-
-    let revList = List.rev !newList in
-    for i = 0 to (List.length revList) do
-      (stacks.(toIndex)) := (List.nth revList i) ::!(stacks.(toIndex))
-    done in
-  List.iter (ec) commands;;
-
-
-let fileInput = read_file "5.txt";;
-let stacksAsArr = splitInputToLists fileInput;;
-transposeListsToArr stacksAsArr;;
-print_char_list_ref_array stacks
-let rawCommands = getCommands fileInput;;
-let commands =  List.map (String.split_on_char ' ') rawCommands;;
-executeCommands9001 commands;;
-print_char_list_ref_array stacks
-  
